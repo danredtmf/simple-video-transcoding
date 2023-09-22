@@ -1,3 +1,7 @@
+hint-code.txt
+pyinstaller-help.txt
+nuitka-help.txt
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

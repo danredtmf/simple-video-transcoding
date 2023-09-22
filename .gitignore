@@ -1,6 +1,7 @@
 hint-code.txt
 pyinstaller-help.txt
 nuitka-help.txt
+SVT/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

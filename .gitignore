@@ -4,6 +4,7 @@ nuitka-help.txt
 SVT/
 SVT/Simple Video Transcoding.exe
 nuitka-crash-report.xml
+resources/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

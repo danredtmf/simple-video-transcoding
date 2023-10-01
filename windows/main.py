@@ -13,19 +13,21 @@ from ffmpeg.progress import Progress
 from pymediainfo import MediaInfo
 
 from ffmpeg_args import FFMPEGArgs
-from global_vars import video_formats, video_file_types, ffmpeg_path, ffmpeg_output_ogv_theora, ffmpeg_output_mp4_h264
+from global_vars import video_formats, video_file_types, ffmpeg_path, ffmpeg_output_ogv_theora, ffmpeg_output_mp4_h264, \
+    ffmpeg_output_mp4_h265
 from pathlib import Path
 
 input_file = ""
 input_file_frames = 0
 video_format = ""
+video_preset = ""
 output_path = ""
 output_name = ""
 output_current_frame = 1
 
 
 def make_simple_video_transcoding_window():
-    global input_file, output_path, output_name, video_format
+    global input_file, output_path, output_name, video_format, video_preset
     layout = [
         [
             sg.Text('Input File:', size=(12, 1)),
@@ -70,10 +72,12 @@ def make_simple_video_transcoding_window():
             window['key:output'].update(output_path)
             window['key:name'].update(output_name)
         if event == 'key:video_format_list':
-            ext = values['key:video_format_list']
-            if ext == video_formats[0]:
+            video_preset = values['key:video_format_list']
+            if video_preset == video_formats[0]:
                 video_format = '.ogv'
-            elif ext == video_formats[1]:
+            elif video_preset == video_formats[1]:
+                video_format = '.mp4'
+            elif video_preset == video_formats[2]:
                 video_format = '.mp4'
         if event == 'key:output':
             output_path = values['key:output']
@@ -83,7 +87,7 @@ def make_simple_video_transcoding_window():
                 if check_output_name():
                     process_info_input(window)
                     threading.Thread(target=minimize_ffmpeg_process).start()
-                    if video_format == video_formats[0]:
+                    if video_preset == video_formats[0]:
                         asyncio.run(
                             ffmpeg_start(window, FFMPEGArgs(
                                 input_file,
@@ -91,11 +95,19 @@ def make_simple_video_transcoding_window():
                                 get_output_full_file_name()
                             ))
                         )
-                    elif video_format == video_formats[1].split()[0]:
+                    elif video_preset == video_formats[1]:
                         asyncio.run(
                             ffmpeg_start(window, FFMPEGArgs(
                                 input_file,
                                 ffmpeg_output_mp4_h264,
+                                get_output_full_file_name()
+                            ))
+                        )
+                    elif video_preset == video_formats[2]:
+                        asyncio.run(
+                            ffmpeg_start(window, FFMPEGArgs(
+                                input_file,
+                                ffmpeg_output_mp4_h265,
                                 get_output_full_file_name()
                             ))
                         )

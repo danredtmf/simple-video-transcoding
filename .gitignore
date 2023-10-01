@@ -2,6 +2,8 @@ hint-code.txt
 pyinstaller-help.txt
 nuitka-help.txt
 SVT/
+SVT/Simple Video Transcoding.exe
+nuitka-crash-report.xml
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -150,8 +152,4 @@ dmypy.json
 cython_debug/
 
 # PyCharm
-#  JetBrains specific template is maintainted in a separate JetBrains.gitignore that can
-#  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
-#  and can be added to the global gitignore or merged into this file.  For a more nuclear
-#  option (not recommended) you can uncomment the following to ignore the entire idea folder.
-#.idea/
+.idea/

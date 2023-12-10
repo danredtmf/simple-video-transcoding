@@ -97,7 +97,7 @@ def make_simple_video_transcoding_window():
 
                 if check_output_name():
                     process_info_input(window)
-                    threading.Thread(target=minimize_ffmpeg_process).start()
+                    # threading.Thread(target=minimize_ffmpeg_process).start()
                     disable_interactive(window)
 
                     if video_preset == video_formats[0]:
@@ -244,8 +244,7 @@ async def ffmpeg_start(window: sg.Window, ffmpeg_args: FFMPEGArgs):
 
     @ffmpeg.on("start")
     def on_start(_arguments: list[str]):
-        # print("arguments:", arguments)
-        pass
+        threading.Thread(target=minimize_ffmpeg_process).start()
 
     @ffmpeg.on("stderr")
     def on_stderr(_line):

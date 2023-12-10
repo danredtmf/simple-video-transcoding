@@ -248,7 +248,6 @@ async def ffmpeg_start(window: sg.Window, ffmpeg_args: FFMPEGArgs):
 
     @ffmpeg.on("stderr")
     def on_stderr(_line):
-        # print("stderr:", line)
         pass
 
     @ffmpeg.on("progress")

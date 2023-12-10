@@ -43,6 +43,7 @@ def make_simple_video_transcoding_window():
                 values=video_formats,
                 enable_events=True,
                 key='key:video_format_list',
+                readonly=True,
             ),
         ],
         [

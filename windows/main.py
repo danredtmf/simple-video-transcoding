@@ -128,11 +128,11 @@ def make_simple_video_transcoding_window():
 
 
 def check_output_name() -> bool:
-    """Не пропускает, если файл с таким именем уже существует"""
+    """Не пропускает, если файл с таким именем и расширением уже существует"""
     output_prompt = get_input_file_name()
     output_full_name = get_output_file_name()
 
-    # Сравнения имён входного и выходного файла
+    # Сравнения имён входного и выходного файла, и имён файлов в папке вывода
     if output_prompt == output_full_name:
         sg.popup("Error!", "Output file name already exists!")
         return False

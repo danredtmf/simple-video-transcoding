@@ -234,9 +234,11 @@ async def ffmpeg_start(window: sg.Window, ffmpeg_args: FFMPEGArgs):
 
     @ffmpeg.on("completed")
     def on_completed():
-        print("completed")
+        global output_current_frame
+        output_current_frame = 1
         window['key:progress'].update(max=1, current_count=0)
         window['key:progress_info'].update('Progress:')
+        print("completed")
 
     @ffmpeg.on("terminated")
     def on_terminated():

@@ -27,7 +27,10 @@ output_current_frame = 1
 
 
 def make_simple_video_transcoding_window():
+    """Логика главного окна"""
     global input_file, output_path, output_name, video_format, video_preset
+
+    # Макет окна
     layout = [
         [
             sg.Text('Input File:', size=(12, 1)),
@@ -60,6 +63,7 @@ def make_simple_video_transcoding_window():
 
     window = sg.Window(title='Simple Video Transcoding', layout=layout, modal=True)
 
+    # События
     while True:
         event, values = window.read()
         if event == sg.WIN_CLOSED:
@@ -115,6 +119,7 @@ def make_simple_video_transcoding_window():
 
 
 def check_output_name() -> bool:
+    """Не пропускает, если файл с таким именем уже существует"""
     output_prompt = get_input_file_name()
     output_full_name = get_output_file_name()
     if output_prompt == output_full_name:
@@ -124,6 +129,7 @@ def check_output_name() -> bool:
 
 
 def process_info_input(window: sg.Window):
+    """Обновляет прогресс-бар перед процессом FFmpeg"""
     global input_file_frames
     media_info = MediaInfo.parse(input_file)
     for track in media_info.tracks:
@@ -134,23 +140,28 @@ def process_info_input(window: sg.Window):
 
 
 def get_progress_percent():
+    """Возвращает прогресс процесса в процентах"""
     return round((output_current_frame / input_file_frames) * 100)
 
 
 def get_progress_percent_string():
+    """Возвращает прогресс процесса в процентах в виде строки"""
     return f'Progress: {get_progress_percent()}%'
 
 
 def get_input_file_name():
+    """Возвращает `имя.расширение` входного файла"""
     return f'{Path(input_file).name.split(".")[0]}.{Path(input_file).name.split(".")[-1]}'
 
 
 def get_output_file_name():
+    """Возвращает `имя.расширение` выходного файла"""
     global output_name, video_format
     return f'{output_name}{video_format}'
 
 
 def get_output_full_file_name():
+    """Возвращает `путь\имя.расширение` выходного файла"""
     global output_path
     return f'{Path(output_path).joinpath(get_output_file_name())}'
 
@@ -171,6 +182,8 @@ def minimize(pid):
 
 
 def minimize_ffmpeg_process():
+    """Функция, отвечающая за сворачивания окна консоли вывода процесса `ffmpeg`.\n
+    Бесконечно ищет процесс `ffmpeg`, затем скрывает её. Данную функцию нужно запускать в отдельном потоке."""
     process_name = "ffmpeg"
     pid = None
 
@@ -184,6 +197,7 @@ def minimize_ffmpeg_process():
 
 
 async def ffmpeg_start(window: sg.Window, ffmpeg_args: FFMPEGArgs):
+    """Запускает процесс `ffmpeg` асинхронно."""
     ffmpeg = (
         FFmpeg(executable=ffmpeg_path)
         .input(ffmpeg_args.get_input_file())

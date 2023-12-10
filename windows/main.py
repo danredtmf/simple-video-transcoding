@@ -97,7 +97,6 @@ def make_simple_video_transcoding_window():
 
                 if check_output_name():
                     process_info_input(window)
-                    # threading.Thread(target=minimize_ffmpeg_process).start()
                     disable_interactive(window)
 
                     if video_preset == video_formats[0]:

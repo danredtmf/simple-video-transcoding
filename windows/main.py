@@ -68,6 +68,7 @@ def make_simple_video_transcoding_window():
         event, values = window.read()
         if event == sg.WIN_CLOSED:
             break
+
         if event == 'key:input':
             input_file = values['key:input']
             output_name = Path(input_file).name.split('.')[0]
@@ -75,6 +76,7 @@ def make_simple_video_transcoding_window():
 
             window['key:output'].update(output_path)
             window['key:name'].update(output_name)
+        
         if event == 'key:video_format_list':
             video_preset = values['key:video_format_list']
             if video_preset == video_formats[0]:
@@ -83,14 +85,18 @@ def make_simple_video_transcoding_window():
                 video_format = '.mp4'
             elif video_preset == video_formats[2]:
                 video_format = '.mp4'
+        
         if event == 'key:output':
             output_path = values['key:output']
+        
         if event == 'Launch':
             if input_file != '' and output_path != '' and video_format != '' and output_name != '':
                 output_name = values['key:name']
+
                 if check_output_name():
                     process_info_input(window)
                     threading.Thread(target=minimize_ffmpeg_process).start()
+
                     if video_preset == video_formats[0]:
                         asyncio.run(
                             ffmpeg_start(window, FFMPEGArgs(

@@ -27,7 +27,7 @@ output_name = ""
 output_current_frame = 1
 
 
-def make_simple_video_transcoding_window():
+def main_window():
     """Логика главного окна"""
     global input_file, output_path, output_name, video_format, video_preset
 

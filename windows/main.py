@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import threading
+import os
 
 import PySimpleGUI as sg
 import psutil
@@ -130,9 +131,17 @@ def check_output_name() -> bool:
     """Не пропускает, если файл с таким именем уже существует"""
     output_prompt = get_input_file_name()
     output_full_name = get_output_file_name()
+
+    # Сравнения имён входного и выходного файла
     if output_prompt == output_full_name:
         sg.popup("Error!", "Output file name already exists!")
         return False
+    else:
+        for file in os.listdir(output_path):
+            if file == output_full_name:
+                sg.popup("Error!", "Output file name already exists!")
+                return False
+
     return True
 
 

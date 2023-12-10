@@ -62,7 +62,7 @@ def make_simple_video_transcoding_window():
         ]
     ]
 
-    window = sg.Window(title='Simple Video Transcoding', layout=layout, modal=True)
+    window = sg.Window(title='Simple Video Transcoding', layout=layout, modal=True, finalize=True)
 
     # События
     while True:
@@ -97,6 +97,7 @@ def make_simple_video_transcoding_window():
                 if check_output_name():
                     process_info_input(window)
                     threading.Thread(target=minimize_ffmpeg_process).start()
+                    disable_interactive(window)
 
                     if video_preset == video_formats[0]:
                         asyncio.run(
@@ -203,6 +204,24 @@ def minimize_ffmpeg_process():
     minimize(pid)
 
 
+def disable_interactive(window: sg.Window):
+    """Выключает интерактивные элементы"""
+    window["Select Input"].update(disabled=True)
+    window['key:video_format_list'].update(disabled=True)
+    window["Select Path"].update(disabled=True)
+    window['key:name'].update(disabled=True)
+    window['Launch'].update(disabled=True)
+
+
+def enable_interactive(window: sg.Window):
+    """Включает интерактивные элементы"""
+    window["Select Input"].update(disabled=False)
+    window['key:video_format_list'].update(disabled=False)
+    window["Select Path"].update(disabled=False)
+    window['key:name'].update(disabled=False)
+    window['Launch'].update(disabled=False)
+
+
 async def ffmpeg_start(window: sg.Window, ffmpeg_args: FFMPEGArgs):
     """Запускает процесс `ffmpeg` асинхронно."""
     ffmpeg = (
@@ -238,10 +257,12 @@ async def ffmpeg_start(window: sg.Window, ffmpeg_args: FFMPEGArgs):
         output_current_frame = 1
         window['key:progress'].update(max=1, current_count=0)
         window['key:progress_info'].update('Progress:')
+        enable_interactive(window)
         print("completed")
 
     @ffmpeg.on("terminated")
     def on_terminated():
         print("terminated")
+        enable_interactive(window)
 
     await ffmpeg.execute()

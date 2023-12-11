@@ -153,6 +153,7 @@ def process_info_input(window: sg.Window):
             input_file_frames = int(track.to_data()['frame_count'])
             window['key:progress'].update(max=input_file_frames, current_count=output_current_frame)
             window['key:progress_info'].update(get_progress_percent_string())
+            break
 
 
 def get_progress_percent():

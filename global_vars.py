@@ -1,6 +1,5 @@
 import os
 
-ffmpeg_presets: tuple = ('Simple Encoding - Decoding', 'Simple Cut')
 video_formats: tuple = ('.ogv', '.mp4 (H264)', '.mp4 (H265)')
 video_file_types: tuple = (('Video Files', ('*.mp4', '*.ogv', '*.mkv')),)
 

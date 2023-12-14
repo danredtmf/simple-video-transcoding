@@ -73,11 +73,12 @@ def main_window():
 
         if event == 'key:input':
             input_file = values['key:input']
-            output_name = Path(input_file).name.split('.')[0]
-            output_path = Path(input_file).parent
 
-            window['key:output'].update(output_path)
-            window['key:name'].update(output_name)
+            if values['key:output'] == '' and values['key:name'] == '':
+                output_name = Path(input_file).name.split('.')[0]
+                output_path = Path(input_file).parent
+                window['key:output'].update(output_path)
+                window['key:name'].update(output_name)
         
         if event == 'key:video_format_list':
             video_preset = values['key:video_format_list']

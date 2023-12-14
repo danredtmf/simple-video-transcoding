@@ -128,18 +128,13 @@ def main_window():
 
 def check_output_name() -> bool:
     """Не пропускает, если файл с таким именем и расширением уже существует"""
-    input_name = get_input_file_name()
     output_name = get_output_file_name()
 
     # Сравнения имён входного и выходного файла, и имён файлов в папке вывода
-    if input_name == output_name:
-        sg.popup("Error!", "Output file name already exists!")
-        return False
-    else:
-        for file in os.listdir(output_path):
-            if file == output_name:
-                sg.popup("Error!", "Output file name already exists!")
-                return False
+    for file in os.listdir(output_path):
+        if file == output_name:
+            sg.popup("Error!", "Output file name already exists!")
+            return False
 
     return True
 

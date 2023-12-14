@@ -95,7 +95,7 @@ def main_window():
             if input_file != '' and output_path != '' and video_format != '' and output_name != '':
                 output_name = values['key:name']
 
-                if check_output_name():
+                if check_output_name() and check_input_file():
                     process_info_input(window)
                     disable_interactive(window)
 
@@ -142,6 +142,18 @@ def check_output_name() -> bool:
                 return False
 
     return True
+
+
+def check_input_file() -> bool:
+    """Не пускает, если исходного файла не существует"""
+    input_path = Path(input_file).parent
+
+    for file in os.listdir(input_path):
+        if file == get_input_file_name():
+            return True
+    
+    sg.popup("Error!", "Input file does not exist!")
+    return False
 
 
 def process_info_input(window: sg.Window):

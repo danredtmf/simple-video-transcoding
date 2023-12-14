@@ -265,6 +265,7 @@ async def ffmpeg_start(window: sg.Window, ffmpeg_args: FFMPEGArgs):
         window['key:progress'].update(max=1, current_count=0)
         window['key:progress_info'].update('Progress:')
         enable_interactive(window)
+        os.startfile(os.path.realpath(output_path))
         print("completed")
 
     @ffmpeg.on("terminated")

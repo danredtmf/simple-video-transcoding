@@ -7,11 +7,11 @@ $ffmpeg_path = Join-Path -Path $ffmpeg_bin_path -ChildPath 'ffmpeg.exe'
 
 function Check-Resources {
     if (Test-Path -Path $resources_path) {
-        Write-Host 'Скачивание FFmpeg' -f Green
+        Write-Host 'Download FFmpeg...' -f Green
         Download-FFmpeg
     }
     else {
-        Write-Host 'Создание папки "resources"...' -f Green
+        Write-Host 'Creating a "resources" folder...' -f Green
         New-Item -Path $resources_path -ItemType Directory | Out-Null
         Check-Resources
     }

@@ -3,9 +3,9 @@ python -m nuitka --clang --disable-console --standalone --onefile --enable-plugi
 --include-data-files=./venv/Lib/site-packages/pymediainfo/MediaInfo.dll=MediaInfo.dll `
 --include-data-files=./resources/ffmpeg.exe=ffmpeg.exe `
 --nofollow-import-to=pyinstaller `
---company-name="DanRedTMF" `
+--company-name="" `
 --product-name="Simple Video Transcoding" `
---product-version="0.0.1" `
+--product-version="1.0.0" `
 --output-filename="Simple Video Transcoding" `
 --output-dir="SVT" `
 --jobs=6 `

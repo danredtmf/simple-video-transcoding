@@ -15,7 +15,7 @@ from pymediainfo import MediaInfo
 
 from ffmpeg_args import FFMPEGArgs
 from global_vars import video_formats, video_file_types, ffmpeg_path, ffmpeg_output_ogv_theora, ffmpeg_output_mp4_h264, \
-    ffmpeg_output_mp4_h265
+    ffmpeg_output_mp4_h265, tutorial_text, about_text
 from pathlib import Path
 
 input_file = ""
@@ -31,8 +31,14 @@ def main_window():
     """Логика главного окна"""
     global input_file, output_path, output_name, video_format, video_preset
 
+    # Макет меню
+    layout_menu = [['Info', ['Tutorial', 'About']]]
+
     # Макет окна
     layout = [
+        [
+            sg.Menu(layout_menu, key='key:menu'),
+        ],
         [
             sg.Text('Input File:', size=(12, 1)),
             sg.Input(readonly=True, key='key:input', enable_events=True),
@@ -70,6 +76,17 @@ def main_window():
         event, values = window.read()
         if event == sg.WIN_CLOSED:
             break
+
+        if event == 'Tutorial':
+            window.disappear()
+            sg.Window('Tutorial', [[sg.Text(tutorial_text)]], modal=True, disable_minimize=True).read(close=True)
+            window.reappear()
+        
+        if event == 'About':
+            window.disappear()
+            sg.Window('About', [[sg.Text(about_text, justification='center')]], modal=True, size=(225, 70),
+                      element_justification='center', disable_minimize=True).read(close=True)
+            window.reappear()
 
         if event == 'key:input':
             input_file = values['key:input']

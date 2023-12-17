@@ -10,7 +10,7 @@
 ## Create an executable file using `Nuitka`
 Make sure that the `is_debug` variable in the `global_vars.py` file is set to `False`. Also, you must have the following components installed in the `Visual Studio Installer`:
 
-![](readme-images\vsi-req.jpg)
+![](https://github.com/danredtmf/simple-video-transcoding/blob/main/readme-images/vsi-req.jpg)
 
 The top part of the checkboxes was checked automatically after installing the `Desktop Development with C++` component.
 

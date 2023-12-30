@@ -11,6 +11,9 @@ ffmpeg_output_mp4_h264: dict[str, str] = {'c:v': 'libx264'}
 ffmpeg_output_mp4_h265: dict[str, str] = {'c:v': 'libx265'}
 
 version = '1.0.0'
+languages = ('en', 'ru')
+config_name = 'config.ini'
+config = None
 
 # 1.1 Чтобы выбрать исходный видеофайл, нажмите кнопку "Select Input"
 # 1.2 Найдите и выберете видеофайл в появившемся окне и нажмите кнопку "Открыть"
